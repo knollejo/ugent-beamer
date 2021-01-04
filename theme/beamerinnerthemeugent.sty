@@ -1,4 +1,4 @@
-% Required package 
+% Required package
 \RequirePackage{tikz}
 
 % Introduce new conditional for title page(s)
@@ -17,7 +17,7 @@
 % before creating a new title page
 \newcommand{\titleframe}{
   \intitleframetrue
-  \frame{\titlepage}
+  \frame[c]{\titlepage}
   \intitleframefalse
 }
 
@@ -25,7 +25,7 @@
 % before creating a new logo page
 \newcommand{\logoframe}{
     \inlogoframetrue
-    \frame{
+    \frame[c]{
         \begin{tikzpicture}
             \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
             \node[anchor=north west,inner sep=0mm] at (.185*\the\paperwidth,.765*\the\paperheight) {\includegraphics[height=.55\textheight]{ugent-\beamer@languagevalue.png}};
@@ -38,9 +38,19 @@
 % before creating a new section page
 \newcommand{\sectionframe}{
   \insectionframetrue
-  \frame{\sectionpage}
+  \frame[c]{\sectionpage}
   \insectionframefalse
 }
+
+% Define logo for title frame
+\defbeamertemplate*{logo in title frame}{ugent}{%
+    \node[anchor=south west,inner sep=0mm] (ugent) at (.05*\the\paperwidth,.025*\the\paperheight) {\includegraphics[height=.15\textheight]{ugent-\beamer@languagevalue}};
+}
+\defbeamertemplate*{logo in title frame}{ugent-cms}{%
+    \node[anchor=south west,inner sep=0mm] (ugent) at (.05*\the\paperwidth,.025*\the\paperheight) {\includegraphics[height=.15\textheight]{ugent-\beamer@languagevalue}};
+    \node[anchor=south west,inner sep=0mm] (cms) at (.17*\the\paperwidth,.025*\the\paperheight) {\includegraphics[height=.15\textheight]{cms}};
+}
+\setbeamertemplate{logo in title frame}[ugent]
 
 % Define background
 \setbeamertemplate{background}{
@@ -54,7 +64,7 @@
         \else
             \fill[color=ugentblue] (.05*\the\paperwidth,.2*\the\paperheight) rectangle (\the\paperwidth,\the\paperheight);
         \fi
-        \node[anchor=south west,inner sep=0mm] (ugent) at (.05*\the\paperwidth,.025*\the\paperheight) {\includegraphics[height=.15\textheight]{ugent-\beamer@languagevalue.png}};
+        \usebeamertemplate{logo in title frame}
     \else\ifinsectionframe
         \fill[color=ugentblue] (.05*\the\paperwidth,.2*\the\paperheight) rectangle (\the\paperwidth,\the\paperheight);
         \node[anchor=south west,inner sep=0mm] at (.05*\the\paperwidth,.025*\the\paperheight) {\includegraphics[height=.15\textheight]{ugent-\beamer@languagevalue.png}};
@@ -62,8 +72,8 @@
     \end{tikzpicture}
 }
 
-% Section page 
-\defbeamertemplate*{section page}{ugent}[1][]{% 
+% Section page
+\defbeamertemplate*{section page}{ugent}[1][]{%
     \vskip-.6cm
 %\fbox{
     \begin{minipage}[t][.7\textheight][b]{\textwidth}
@@ -73,47 +83,31 @@
 }
 
 % Title page
-\defbeamertemplate*{title page}{ugent}[1][]{% 
-    \ifbeamer@faculty
-        \vskip.6cm
-    \else
-        \vskip-.75cm
-    \fi
-%\fbox{
-    \hspace*{.02\textwidth}
-    \begin{minipage}[t][.1\textheight][t]{.98\textwidth}
+\defbeamertemplate*{title page}{ugent}[1][]{%
+\ifbeamer@faculty
+    \vskip.6cm
+    \hspace*{0.02\textwidth}
+    \begin{minipage}[t][.625\textheight][b]{0.98\textwidth}
+\else
+    \vskip-.75cm
+    \hspace*{0.02\textwidth}
+    \begin{minipage}[t][.8\textheight][b]{0.98\textwidth}
+\fi
         {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate}
-    \end{minipage}
-%}
-%\fbox{
-   \ifbeamer@faculty
-        \hspace*{.02\textwidth}
-        \begin{minipage}[t][.425\textheight][b]{.98\textwidth}
-            \ifx\insertsubtitle\@empty%
-                {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
-            \else%
-                {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}\\[.25cm]
-                {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle}
-            \fi
-        \end{minipage}
-   \else
-        \hspace*{.02\textwidth}
-        \begin{minipage}[t][.6\textheight][b]{.98\textwidth}
-            \ifx\insertsubtitle\@empty%
-                {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
-            \else%
-                {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}\\[.25cm]
-                {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle}
-            \fi
-        \end{minipage}
-   \fi
-%}
-%\fbox{
-    \hspace*{.02\textwidth}
-    \begin{minipage}[t][.1\textheight][b]{.98\textwidth}
+
+        \vfill
+
+        \ifx\insertsubtitle\@empty%
+            {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
+        \else%
+            {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}\\[.25cm]
+            {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle}
+        \fi
+
+        \vspace{\dimexpr.1\textheight-\ht\strutbox}
+
         {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor}
     \end{minipage}
-%}
 }
 
 % Margins
