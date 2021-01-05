@@ -2,7 +2,7 @@
 \setbeamertemplate{footline}{%
     \ifinlogoframe\else%
     \ifintitleframe\else%
-    \ifinsectionframe\else%
+    %\ifinsectionframe\else%
         \hfill%
         \begin{beamercolorbox}[wd=.95\paperwidth,ht=1cm]{page number in head/foot}
             \usebeamerfont{page number in head/foot}%
@@ -17,5 +17,5 @@
                 \insertpagenumber\kern1em\vspace*{4mm}%
             \fi
         \end{beamercolorbox}
-  \fi\fi\fi%
+  \fi\fi%\fi%
 }

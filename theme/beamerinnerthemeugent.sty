@@ -67,7 +67,7 @@
         \usebeamertemplate{logo in title frame}
     \else\ifinsectionframe
         \fill[color=ugentblue] (.05*\the\paperwidth,.2*\the\paperheight) rectangle (\the\paperwidth,\the\paperheight);
-        \node[anchor=south west,inner sep=0mm] at (.05*\the\paperwidth,.025*\the\paperheight) {\includegraphics[height=.15\textheight]{ugent-\beamer@languagevalue.png}};
+        %\usebeamertemplate{logo in title frame}
     \fi\fi
     \end{tikzpicture}
 }
@@ -178,3 +178,38 @@
      \end{actionenv}
    \end{minipage}
 \end{center}}
+
+% Modify list indentation
+\def\@@enumerate{enumerate}
+\setbeamertemplate{itemize/enumerate body begin}{%
+    \ifx\@currenvir\@@enumerate%
+        \settowidth\leftmargini{\insertenumlabel.}%
+        \addtolength\leftmargini{\labelsep}%
+    \else%
+        \settowidth\leftmargini{\usebeamertemplate{itemize item}}%
+        \addtolength\leftmargini{\labelsep}%
+    \fi%
+}
+\setbeamertemplate{itemize/enumerate subbody begin}{%
+    \ifx\@currenvir\@@enumerate%
+        \settowidth\leftmarginii{\insertsubenumlabel.}%
+        \addtolength\leftmarginii{\labelsep}%
+    \else%
+        \settowidth\leftmarginii{\usebeamertemplate{itemize subitem}}%
+        \addtolength\leftmarginii{\labelsep}%
+    \fi%
+}
+\setbeamertemplate{itemize/enumerate subsubbody begin}{%
+    \ifx\@currenvir\@@enumerate%
+        \settowidth\leftmarginiii{\insertsubsubenumlabel.}%
+        \addtolength\leftmarginiii{\labelsep}%
+    \else%
+        \settowidth\leftmarginiii{\usebeamertemplate{itemize subsubitem}}%
+        \addtolength\leftmarginiii{\labelsep}%
+    \fi%
+}
+\setbeamertemplate{enumerate subitem}{\insertsubenumlabel.}
+\setbeamertemplate{enumerate subsubitem}{\insertsubsubenumlabel.}
+
+% Emphasize with main color
+\renewcommand<>{\emph}[1]{\alt#2{{\usebeamercolor[fg]{emphasized text}#1}}{#1}}
