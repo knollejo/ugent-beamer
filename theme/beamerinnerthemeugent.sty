@@ -85,28 +85,28 @@
 % Title page
 \defbeamertemplate*{title page}{ugent}[1][]{%
 \ifbeamer@faculty
-    \vskip.6cm
+    \vskip-0.1cm
     \hspace*{0.02\textwidth}
-    \begin{minipage}[t][.625\textheight][b]{0.98\textwidth}
+    \begin{minipage}[t][.575\textheight][b]{0.98\textwidth}
 \else
-    \vskip-.75cm
+    \vskip-1.5cm
     \hspace*{0.02\textwidth}
-    \begin{minipage}[t][.8\textheight][b]{0.98\textwidth}
+    \begin{minipage}[t][.75\textheight][b]{0.98\textwidth}
 \fi
-        {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate}
+        {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}
 
         \vfill
 
         \ifx\insertsubtitle\@empty%
-            {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
+            {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}
         \else%
-            {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}\\[.25cm]
-            {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle}
+            {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}%\\[.25cm]
+            {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
         \fi
 
         \vspace{\dimexpr.1\textheight-\ht\strutbox}
 
-        {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor}
+        {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}
     \end{minipage}
 }
 
